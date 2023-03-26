@@ -2,15 +2,15 @@ import { Box } from '@chakra-ui/react'
 import React from 'react'
 import Navbar from '../Components/Navbar'
 
-const Home = () => {
+const Create = () => {
 
 
 return (
     <Box>
-      <Navbar/>
-      HOme
+    <Navbar/>
+      create
     </Box>
   )
 }
 
-export default Home
+export default Create
