@@ -24,7 +24,7 @@ const handlePost=async()=>{
      formData.append("image", image);
      formData.append("picturePath",image.name)
      console.log(desc,location,image.name)
-await axios.post(`${baseUrl}/posts/create`,formData)
+await axios.post(`${baseUrl}/post/create`,formData)
 .then((res)=>{
 console.log(res)
 alert("Post Uploaded")

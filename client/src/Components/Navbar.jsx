@@ -1,11 +1,11 @@
 import { Box,Flex,Image,Input,Menu,MenuButton,MenuList,MenuGroup,MenuItem,Button,MenuDivider,Text, Avatar, Heading} from '@chakra-ui/react'
 import React from 'react'
-import {AiOutlineHeart,AiOutlineHome} from 'react-icons/ai'
+import {AiOutlineLogout,AiOutlineHome,AiOutlineCloseCircle,AiOutlinePullRequest} from 'react-icons/ai'
 import {BiMessageSquareAdd,BiMessageDetail} from 'react-icons/bi'
+import {CgProfile} from 'react-icons/cg'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
-import {GrFormClose} from "react-icons/gr"
 import {baseUrl} from "../Utils/BaseUrl"
 
 
@@ -35,12 +35,9 @@ const handleClick=(id)=>{
 // }
 
 const handleChange = (e) => {
+  console.log(e.target.value)
     document.querySelector("#searchBox").style.display="block"
-axios.get(`${baseUrl}/users/search/${e.target.value}`,{
-  headers:{
-    // Authorization:`Bearer ${token}`
-}
-}).then((res)=>{
+axios.get(`${baseUrl}/user/search/${e.target.value}`).then((res)=>{
   console.log(res)
   setSearchData(res.data)
 })
@@ -49,51 +46,63 @@ axios.get(`${baseUrl}/users/search/${e.target.value}`,{
 })
 };
 
+const handleClose=()=>{
+  document.querySelector("#searchBox").style.display="none"
+}
 
   return (
     <>
     <Box minH='100vh' zIndex="9999" boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px' backgroundColor="white" position='fixed' w="20%">
     <Box justifyContent='space-between' w='100%' h={20}>
           <Box  p={[0,0,5]} justifyContent='space-around'>
-        <Heading>Sachin</Heading>
-        <Input mt={10} onInput={handleChange} placeholder="search" w="100%" display={["none","none","block"]}/>
+        <Heading color='blue' textAlign='center' fontFamily='cursive'>OnlySad</Heading>
+        <Input mt={10} onInput={(e)=>handleChange(e)} placeholder="search" w="100%" display={["none","none","block"]}/>
       </Box> 
-      <Box p={5} justifyContent="space-evenly" fontSize='30px'>
+      <Box pl='40px' justifyContent="space-around" fontSize='20px'>
         <Link to="/">
-          <Flex mt={5} justifyContent='space-around'>
-        <AiOutlineHome mt={5}/>
-        <Text>Home</Text>
+          <Flex p={3} _hover={{background:'#f3f4f6'}} gap='50px'>
+            <AiOutlineHome pt={5}/>
+            <Text>Home</Text>
           </Flex>
         </Link>
         <Link to="/create">
-          <Flex mt={5} justifyContent='space-around'>
-        <BiMessageSquareAdd/>
-        <Text>Create</Text>
+          <Flex p={3} _hover={{background:'#f3f4f6'}} gap='50px'>
+            <BiMessageSquareAdd/>
+            <Text>Create</Text>
           </Flex>
         </Link>
-        <Link to="/profile">
-          <Flex mt={5} justifyContent='space-around'>
-        <AiOutlineHome/>
+        <Link to="/request">
+          <Flex p={3} _hover={{background:'#f3f4f6'}} gap='50px'>
+        <AiOutlinePullRequest/>
+        <Text>Request</Text>
+          </Flex>
+          </Link>
+          <Link to="/profile">
+          <Flex p={3} _hover={{background:'#f3f4f6'}} gap='50px'>
+        <CgProfile/>
         <Text>Profile</Text>
           </Flex>
           </Link>
           <Link to='/login'>
-          <Flex mt={5} justifyContent='space-around'>
-        <AiOutlineHome/>
+          <Flex p={3} _hover={{background:'#f3f4f6'}} gap='50px'>
+        <AiOutlineLogout/>
         <Text>Logout</Text>
           </Flex>
         </Link>        
       </Box>
     </Box>
     </Box>
-    <Box id="searchBox" w="425px" position="fixed" backgroundColor="white" mt="70px" ml="245px" zIndex="9999">
+    <Box id="searchBox" display='none' w="20%" position="fixed" backgroundColor="white" mt="170px" zIndex="9999" minHeight='100vh'>
+      <Text cursor='pointer'  onClick={handleClose} pl='88%' fontSize='30px'>
+      <AiOutlineCloseCircle />
+      </Text>
     {
       searchData && searchData.map(ele=>(
         <>
         <Flex justifyContent="space-around" pb={2} cursor="pointer" key={ele._id} _hover={{ bg: "grey" }}>
-            <Box onClick={()=>handleClick(ele._id)}>
+            {/* <Box onClick={()=>handleClick(ele._id)}>
                 <Image h="50px" w="50px" borderRadius="50%" src={`${baseUrl}/assets/${ele.picturePath}`}/>
-            </Box>
+            </Box> */}
             <Box>
                 <Text onClick={()=>handleClick(ele._id)}>{ele.username}</Text>
                 {/* <Text>{ele.location}</Text> */}

@@ -27,7 +27,7 @@ useEffect(()=>{
 },[])
 
 const getUserPosts=()=>{
-  axios.get(`${baseUrl}/posts/${user._id}/posts`)
+  axios.get(`${baseUrl}/post/${user._id}/posts`)
   .then((res)=>{
     console.log(res.data)
     setPosts(res.data)
@@ -53,15 +53,15 @@ const profilepicref=useRef()
 // })
 // }
 
-const handleDelete=(ele)=>{
-  axios.delete(`${baseUrl}/posts/delete/${ele._id}`)
-  .then((res)=>{
-    console.log(res)
-  })
-  .catch((err)=>{
-    console.log(err)
-  })
-}
+// const handleDelete=(ele)=>{
+//   axios.delete(`${baseUrl}/posts/delete/${ele._id}`)
+//   .then((res)=>{
+//     console.log(res)
+//   })
+//   .catch((err)=>{
+//     console.log(err)
+//   })
+// }
 
 const SinglePost=(ele)=>{
   navigate(`/SinglePost/${ele._id}`)
@@ -125,8 +125,8 @@ const SingleUser=(id)=>{
             {
               posts && posts.map(ele=>(
                   <GridItem key={ele._id} w="100%">
-                    <Image onClick={()=>SinglePost(ele)} cursor="pointer" src={`${baseUrl}/assets/${ele.picturePath}`} h={[100,100,400]}/>
-                <Popover>
+                    <Image w={300} onClick={()=>SinglePost(ele)} cursor="pointer" src={`${baseUrl}/assets/${ele.picturePath}`} h={[100,100,400]}/>
+                {/* <Popover>
                   <PopoverTrigger>
                 <Text bg='#74ceda' cursor="pointer" color='white' textAlign='center'>Delete</Text>
                   </PopoverTrigger>
@@ -140,7 +140,7 @@ const SingleUser=(id)=>{
                       </PopoverBody>
                     </PopoverContent>
                   </Portal>
-                </Popover>
+                </Popover> */}
                   </GridItem>
               ))
             }
