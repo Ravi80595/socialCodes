@@ -31,6 +31,7 @@ const Login = () => {
       .then((res)=>{
         console.log(res)
         alert("Login Success")
+        localStorage.setItem("socialcodes",JSON.stringify(res.data.user))
         navigate("/")
       })
   }
