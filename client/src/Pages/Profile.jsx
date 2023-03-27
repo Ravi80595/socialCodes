@@ -16,15 +16,28 @@ import Navbar from "../Components/Navbar"
 const Profile = () => {
   const [posts,setPosts]=useState([])
   const [image, setImage] = useState(null);
-  const [profileData,setProfileData]=useState([JSON.parse(localStorage.getItem("socialcodes"))])
+  const [profileData,setProfileData]=useState([])
   const navigate=useNavigate()
   const user = JSON.parse(localStorage.getItem("socialcodes"))
   const { isOpen, onOpen, onClose } = useDisclosure()
-console.log(profileData)
+  const [firstName,setFirstName]=useState('')
+  const [lastName,setLastName]=useState('')
+  const [texts,setTexts]=useState('')
+
 
 useEffect(()=>{
   getUserPosts()
-},[])
+  getUserProfile()
+},[firstName])
+
+
+const getUserProfile=()=>{
+  axios.get(`${baseUrl}/user/${user._id}`)
+  .then((res)=>{
+    console.log(res.data)
+    setProfileData([res.data])
+  })
+}
 
 const getUserPosts=()=>{
   axios.get(`${baseUrl}/post/${user._id}/posts`)
@@ -39,8 +52,18 @@ const profilepicref=useRef()
 const SinglePost=(ele)=>{
   navigate(`/SinglePost/${ele._id}`)
 }
-const SingleUser=(id)=>{
-  navigate(`/SingleUser/${id}`)
+
+const handleUpdate=()=>{
+  const payload={
+    firstName:firstName,
+    lastName:lastName,
+    bio:texts
+  }
+axios.patch(`${baseUrl}/user/updateDetail/${user._id}`,payload)
+.then((res)=>{
+  console.log(res)
+  alert("Profile Updated")
+})
 }
 
 // if(isLoading){
@@ -55,17 +78,15 @@ const SingleUser=(id)=>{
     <>
     <Navbar/>
     <Flex ml="20%" backgroundColor="blackAlpha.100">
-        <Box w={["100%","100%","100%",'100%']} margin="auto" p={[0,0,20]}>
+        <Box w={["95%","100%","100%",'100%']} margin="auto" p={[0,0,20]}>
         {
           profileData.map(ele=>(
         <>
         <Box margin="auto">
           <Box textAlign="center">
-            <Flex justifyContent='space-around'>
-            <Heading>{ele.firstName+" "+ele.lastName}</Heading>
-            <Link to="/settings">
-            <Button>Edit Profile</Button>
-            </Link>
+            <Flex justifyContent='space-around' pt={[5,10,10,0]}>
+            <Text fontSize={["20px","20px","20px",'35px']} fontWeight='bold'>{ele.firstName+" "+ele.lastName}</Text>
+            <Button bg='blue' onClick={onOpen} color='white'>Edit Profile</Button>
             </Flex>
             <Flex pt={5} justifyContent='space-around'>
             <Text textAlign='center' pt={2}>Username : {ele.username}</Text>
@@ -98,7 +119,7 @@ const SingleUser=(id)=>{
             {
               posts && posts.map(ele=>(
                   <GridItem key={ele._id} w="100%">
-                    <Image w={300} onClick={()=>SinglePost(ele)} cursor="pointer" src={`${baseUrl}/assets/${ele.picturePath}`} h={[100,100,400]}/>
+                    <Image w={300} onClick={()=>SinglePost(ele)} cursor="pointer" src={`${baseUrl}/assets/${ele.picturePath}`} h={[400,100,400]}/>
 
                   </GridItem>
               ))
@@ -106,7 +127,22 @@ const SingleUser=(id)=>{
          </Grid>
         </Box>
     </Flex>
-      
+    <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
+                <ModalOverlay backdropBlur="2px"/>
+                <ModalContent w='60vw' ml='20%' mt={100}>
+                    <ModalHeader>Update Details</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody >
+                      <label> First name</label>
+                      <Input value={firstName} onChange={(e)=>setFirstName(e.target.value)}/>
+                      <label>Last name</label>
+                      <Input value={lastName} onChange={(e)=>setLastName(e.target.value)}/>
+                      <label>Enter Bio</label>
+                      <Textarea value={texts} onChange={(e)=>setTexts(e.target.value)}></Textarea>
+                      <Button onClick={handleUpdate} mt={5}>Update</Button>
+                    </ModalBody>
+                </ModalContent>
+            </Modal>
     </>
   )
 }

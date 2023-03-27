@@ -118,17 +118,19 @@ const seecomments=(ele)=>{
 
     {
     feeds.map(ele=>(  
-        <Box w='50%' m='auto' backgroundColor='white' pt={[2]} mb={[5]} borderRadius={["0%","0%","15px"]} key={ele._id}>
+        <Box w={['90%','90%','90%','50%']} m='auto' backgroundColor='white' pt={[2]} mb={[5]} borderRadius={["0%","0%","15px"]} key={ele._id}>
          <Flex p="7px">
-        <Flex w="90%" gap={5} justifyContent='space-around'>
+        <Flex w="100%" gap={5} justifyContent='space-around'>
         <Box>
         <Text cursor='pointer' onClick={()=>SingleUser(ele.userId)}>{`${ele.username}`}</Text>
         <Text>{ele.location}</Text>
         </Box>
+        <Box>
           <Text>{ele.date}</Text>
-        </Flex>
-        <Box w="30%" fontSize="40px" pl="30px">
         </Box>
+        </Flex>
+        {/* <Box w="30%" fontSize="40px" pl="30px">
+        </Box> */}
       </Flex>
       <Text p={2}>{ele.description}</Text>
       <Box>
@@ -146,50 +148,11 @@ const seecomments=(ele)=>{
         <BsSave2 onClick={handleRender} fontSize="25px"/>
         </Box>
       </Flex>
-      {/* <Text p={2} color="grey">{ele.date}</Text> */}
-      {/* <Text pl={2} cursor="pointer" color="grey" onClick={()=>seecomments(ele)}>View all comments</Text> */}
-      <Modal isOpen={iscommentOpen} onClose={oncommentClose} scrollBehavior="inside">
-                <ModalOverlay backdropBlur="2px"/>
-                <ModalContent mt={100}>
-                    <ModalHeader>All Comments</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody >
-                    {
-                      comments.map(ele=>(
-                        <>
-                      <Flex m={1} p={2}>
-                        <Flex w='40%' cursor="pointer" justifyContent='space-around' onClick={()=>handleClick(ele._id)}>
-                        <Image w={10} h={10} borderRadius={50} src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"/>
-                        <Box>
-                        <Text> <b>{ele.postedBy} </b> : </Text>
-                        <Text fontSize={10}>{ele.date}</Text>
-                        </Box>
-                        </Flex>
-                        <Text pt={1}>{ele.text}</Text>
-                        <Text marginLeft="auto">
-                        <CiHeart cursor="pointer"/>
-                        </Text>
-                      </Flex>
-                      </>
-                      ))
-                    }
-                    </ModalBody>
-                </ModalContent>
-      </Modal>
-
-
-{/* <InputGroup size="md" mt="15px" backgroundColor="white">
-            <Input pr="4.5rem" placeholder="Add a comment..." value={text} onChange={(e)=>setText(e.target.value)}/>
-                <InputLeftElement fontSize='25px'>
-                <BsEmojiSmile/>
-                </InputLeftElement>
-                <InputRightElement width="4.5rem">
-                  <Text cursor='pointer' onClick={()=>handleComment(ele._id)} h="1.75rem" size="sm" color='blue'> post </Text>
-                </InputRightElement>
-                   </InputGroup> */}
+  
+    {/* <Box w='60%' > */}
       <Modal isOpen={islikeOpen} onClose={onlikeClose} scrollBehavior="inside">
                 <ModalOverlay backdropBlur="2px"/>
-                <ModalContent mt={100}>
+                <ModalContent w='60vw' ml='20%' mt={100}>
                     <ModalHeader>Liked By</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody >
@@ -208,7 +171,7 @@ const seecomments=(ele)=>{
                     </ModalBody>
                 </ModalContent>
             </Modal>
-     
+            {/* </Box> */}
     </Box>
     ))
 }        

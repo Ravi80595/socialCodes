@@ -50,49 +50,49 @@ const handleClose=()=>{
   document.querySelector("#searchBox").style.display="none"
 }
 
-  return (
+return (
     <>
     <Box minH='100vh' zIndex="9999" boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px' backgroundColor="white" position='fixed' w="20%">
     <Box justifyContent='space-between' w='100%' h={20}>
           <Box  p={[0,0,5]} justifyContent='space-around'>
         <Heading color='blue' textAlign='center' fontFamily='cursive'>OnlySad</Heading>
-        <Input mt={10} onInput={(e)=>handleChange(e)} placeholder="search" w="100%" display={["none","none","block"]}/>
+        <Input mt={10} onInput={(e)=>handleChange(e)} placeholder="search" w="100%" display={["block","none","block"]}/>
       </Box> 
-      <Box pl='40px' justifyContent="space-around" fontSize='20px'>
+      <Box pl={['10px','10px','40px','40px']} justifyContent="space-around" fontSize='20px'>
         <Link to="/">
           <Flex p={3} _hover={{background:'#f3f4f6'}} gap='50px'>
             <AiOutlineHome pt={5}/>
-            <Text>Home</Text>
+            <Text display={["none","none","block"]}>Home</Text>
           </Flex>
         </Link>
         <Link to="/create">
           <Flex p={3} _hover={{background:'#f3f4f6'}} gap='50px'>
             <BiMessageSquareAdd/>
-            <Text>Create</Text>
+            <Text display={["none","none","block"]}>Create</Text>
           </Flex>
         </Link>
         <Link to="/request">
           <Flex p={3} _hover={{background:'#f3f4f6'}} gap='50px'>
         <AiOutlinePullRequest/>
-        <Text>Request</Text>
+        <Text display={["none","none","block"]}>Request</Text>
           </Flex>
           </Link>
           <Link to="/profile">
           <Flex p={3} _hover={{background:'#f3f4f6'}} gap='50px'>
         <CgProfile/>
-        <Text>Profile</Text>
+        <Text display={["none","none","block"]}>Profile</Text>
           </Flex>
           </Link>
           <Link to='/login'>
           <Flex p={3} _hover={{background:'#f3f4f6'}} gap='50px'>
         <AiOutlineLogout/>
-        <Text>Logout</Text>
+        <Text display={["none","none","block"]}>Logout</Text>
           </Flex>
         </Link>        
       </Box>
     </Box>
     </Box>
-    <Box id="searchBox" display='none' w="20%" position="fixed" backgroundColor="white" mt="170px" zIndex="9999" minHeight='100vh'>
+    <Box id="searchBox" display='none' w={["15%","10%","10%","20%"]} position="fixed" backgroundColor="white" mt="170px" zIndex="9999" minHeight='100vh'>
       <Text cursor='pointer'  onClick={handleClose} pl='88%' fontSize='30px'>
       <AiOutlineCloseCircle />
       </Text>
@@ -104,7 +104,7 @@ const handleClose=()=>{
                 <Image h="50px" w="50px" borderRadius="50%" src={`${baseUrl}/assets/${ele.picturePath}`}/>
             </Box> */}
             <Box>
-                <Text onClick={()=>handleClick(ele._id)}>{ele.username}</Text>
+                <Text fontSize={['10px','10px','10px','25px']} onClick={()=>handleClick(ele._id)}>{ele.username}</Text>
                 {/* <Text>{ele.location}</Text> */}
             </Box>
             <Box pt={3}>

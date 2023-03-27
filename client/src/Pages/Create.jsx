@@ -40,7 +40,7 @@ alert("Post Uploaded")
 return (
     <Box backgroundColor="blackAlpha.100" minH='100vh'>
     <Navbar/>
-    <Box w={["100%","100%","70%"]} ml="25%" pt={10}>
+    <Box w={["70%","70%","70%"]} ml="25%" pt={10}>
      <Box bg='white' boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px" p={[5,5,20]}>
         <Box border="2px solid grey" mb={2} borderRadius="5px" mt="1rem" p="1rem">
           <Dropzone acceptedFiles=".jpg,.jpeg,.png" multiple={false} onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}

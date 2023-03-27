@@ -78,34 +78,17 @@ return (
     <>
     <Navbar/>
     <Flex pt={20} backgroundColor="blackAlpha.100">
-        <Box w="25%" pl={10} pr={10}>
-            <Text p={5} textAlign="center">Friends</Text>
-            {/* {
-            SingleFriends && SingleFriends.map(ele=>(
-
-        <Flex onClick={()=>SingleUser(ele._id)} justifyContent="space-around" _hover={{ bg: "grey" }} pb={2} key={ele._id} cursor="pointer">
-            <Box >
-                <Image w="50px" h="50px" borderRadius="50%" src={`${baseUrl}/assets/${ele.picturePath}`}/>
-            </Box>
-            <Box>
-                <Text>{`${ele.firstName} ${ele.lastName}`}</Text>
-                <Text>{ele.location}</Text>
-            </Box>
-            <Box pt={3}>
-                <IoPersonRemoveOutline />
-            </Box>
-        </Flex>
-        ))
-    } */}
+        <Box w={["10%","10%","10%","20%"]} pl={10} pr={10}>
+            {/* <Text p={5} textAlign="center">Friends</Text> */}
         </Box>
-        <Box w='75%' margin="auto" p={20} pt={5}>
+        <Box w='75%' margin="auto" p={[0,0,0,20]} pt={5}>
         {
           SingleProfile.map(ele=>(
             <>
             <Box margin="auto">
               <Box textAlign="center">
                 <Flex justifyContent='space-around'>
-                <Heading>{ele.firstName+" "+ele.lastName}</Heading>
+                <Text fontSize={["20px","20px","20px",'35px']} fontWeight='bold'>{ele.firstName+" "+ele.lastName}</Text>
                 {/* <Link to="/settings"> */}
                 <Button onClick={()=>handleFollow(ele._id)} bg='blue' color='white'>Follow</Button>
                 {/* </Link> */}
@@ -132,21 +115,20 @@ return (
          <hr />
          <Flex justifyContent="space-evenly" backgroundColor='white'>
          <Text textAlign="center">Posts</Text>
-         <Text>Reels</Text>
+         {/* <Text>Reels</Text> */}
          </Flex>
          <hr />
-         <Grid templateColumns='repeat(3, 1fr)' gap={5} pt={30}>
+         <Grid templateColumns={['repeat(1, 1fr)','repeat(2, 1fr)','repeat(3, 1fr)']} gap={5} pt={30}>
             {
               posts && posts.map(ele=>(
                   <GridItem onClick={()=>SinglePost(ele)}>
-                    <Image cursor='pointer' src={`${baseUrl}/assets/${ele.picturePath}`} h={400} w={400}/>
+                    <Image w={300} cursor='pointer' src={`${baseUrl}/assets/${ele.picturePath}`} h={400}/>
                   </GridItem>
               ))
             }
          </Grid>
         </Box>
     </Flex>
-      
     </>
   )
 }

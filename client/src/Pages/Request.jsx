@@ -46,8 +46,8 @@ return (
       <Box backgroundColor="blackAlpha.100" ml='20%' minH='100vh' pt={10}> 
       {
       data && data.map(ele=>(
-      <Box w='70%' bg='white' pb={3} m='auto' borderRadius={10} mb={5}> 
-      <Flex justifyContent='space-around' p={5}>
+      <Box w='95%' bg='white' pb={3} m='auto' borderRadius={10} mb={5}> 
+      <Flex direction={['column','column','column','row']} justifyContent='space-around' p={5}>
       <Box lineHeight={10}>
       <Text>Name : {ele.firstName} {ele.lastName}</Text>
     </Box>

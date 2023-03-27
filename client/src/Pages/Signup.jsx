@@ -56,7 +56,7 @@ axios.post(`${baseUrl}/user/register`,payload)
     {/* <Navbar/> */}
     <Box w="100%" boxShadow='rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px' overflow="hidden" position='fixed' backgroundColor="white">
     </Box>
-    <Box width="30%" m="auto" pb={20}>
+    <Box width={["90%","90%","30%"]} m="auto" pb={20}>
             <Box p={5} mt={10}  boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px'>
                 <FormControl isRequired>
                     {/* <HStack> */}
