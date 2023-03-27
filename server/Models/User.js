@@ -14,7 +14,9 @@ const userSchema = new mongoose.Schema({
     location:String,
     bio:{type:String,default:"Enter Bio"},
     date:{type:String,default:currentDate},
-    time:{type:String,default:currentTime}
+    time:{type:String,default:currentTime},
+    following:{type:Array,default:[]},
+    pendingFollowRequests:{type:Array,default:[]}
 },{
     timestamps:true
 })

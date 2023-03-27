@@ -62,6 +62,17 @@ const handleFriend=(ele)=>{
 }
 }
 
+const handleFollow=(id)=>{
+  const payload={
+    followingId:id,
+    followerId:user._id
+  }
+  axios.post(`${baseUrl}/user/follow`,payload)
+  .then((res)=>{
+    console.log(res)
+  })
+}
+
 return (
     <>
     <Navbar/>
@@ -95,7 +106,7 @@ return (
                 <Flex justifyContent='space-around'>
                 <Heading>{ele.firstName+" "+ele.lastName}</Heading>
                 {/* <Link to="/settings"> */}
-                <Button></Button>
+                <Button onClick={()=>handleFollow(ele._id)} bg='blue' color='white'>Follow</Button>
                 {/* </Link> */}
                 </Flex>
                 <Flex pt={5} justifyContent='space-around'>

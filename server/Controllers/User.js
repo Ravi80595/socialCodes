@@ -44,3 +44,101 @@ export const searchUser=async(req,res)=>{
         console.log(err)
     }
 }
+
+// ........................... User Follow Method ...............................
+
+export const follow=async(req,res)=>{
+    const { followerId, followingId } = req.body;
+      try {
+        const follower = await User.findById(followerId);
+        const following = await User.findById(followingId);
+        if (!follower || !following) {
+          return res.status(404).send('User not found');
+        }
+        if (follower.following.includes(followingId)) {
+          return res.status(400).send('Already following user');
+        }
+        // Add follow request to the following user's pendingFollowRequests array
+        following.pendingFollowRequests.push(followerId);
+        await following.save();
+        res.send('Follow request sent');
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal server error');
+      }
+}
+
+export const followApprove=async(req,res)=>{
+    const { id } = req.params;
+      const { followerId } = req.body;
+      try {
+        const user = await User.findById(id);
+        if (!user) {
+          return res.status(404).send('User not found');
+        }
+        if (!user.pendingFollowRequests.includes(followerId)) {
+          return res.status(400).send('No pending follow request from user');
+        }
+        // Add follower to the user's followers array
+        user.followers.push(followerId);
+        // Remove follower from the user's pendingFollowRequests array
+        user.pendingFollowRequests.pull(followerId);
+        const follower = await User.findById(followerId);
+        // Add user to the follower's following array
+        follower.following.push(id);
+        await user.save();
+        await follower.save();
+        res.send('Follow request approved');
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal server error');
+      }
+}
+
+export const followReject=async(req,res)=>{
+    const { id } = req.params;
+      const { followerId } = req.body;
+      try {
+        const user = await User.findById(id);
+        if (!user) {
+          return res.status(404).send('User not found');
+        }
+        if (!user.pendingFollowRequests.includes(followerId)) {
+          return res.status(400).send('No pending follow request from user');
+        }
+        // Remove follower from the user's pendingFollowRequests array
+        user.pendingFollowRequests.pull(followerId);
+        await user.save();
+        res.send('Follow request rejected');
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal server error');
+      }
+}
+
+// app.post('/follow/:id/reject', async (req, res) => {
+//   const { id } = req.params;
+//   const { followerId } = req.body;
+//   try {
+//     const user = await User.findById(id);
+//     if (!user) {
+//       return res.status(404).send('User not found');
+//     }
+//     if (!user.pendingFollowRequests.includes(followerId)) {
+//       return res.status(400).send('No pending follow request from user');
+//     }
+//     // Remove follower from the user's pendingFollowRequests array
+//     user.pendingFollowRequests.pull(followerId);
+//     await user.save();
+//     res.send('Follow request rejected');
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send('Internal server error');
+//   }
+// });
+
+
+
+
+
+
