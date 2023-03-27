@@ -20,7 +20,7 @@ export const createPost = async(req,res)=>{
         });
 
   if (existingPost) {
-    res.status(429).send('You can only create one post in 24 hours');
+    res.status(429).send({"msg":'You can only create one post in 24 hours'});
     return;
   }
         const newPost = new Post({

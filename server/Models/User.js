@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
     date:{type:String,default:currentDate},
     time:{type:String,default:currentTime},
     following:{type:Array,default:[]},
+    followers:{type:Array,default:[]},
     pendingFollowRequests:{type:Array,default:[]}
 },{
     timestamps:true

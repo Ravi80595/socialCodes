@@ -70,6 +70,7 @@ const handleFollow=(id)=>{
   axios.post(`${baseUrl}/user/follow`,payload)
   .then((res)=>{
     console.log(res)
+    alert(res.data.msg)
   })
 }
 
@@ -117,8 +118,8 @@ return (
               <Box>
               <Flex justifyContent='space-around'  pt={5}>
                 <Text>{posts.length} Posts</Text>
-                <Text>{ele.friends.length} Followers</Text>
-                <Text>{ele.friends.length} Follows</Text>
+                <Text>{ele.followers.length} Followers</Text>
+                <Text>{ele.following.length} Follow</Text>
               </Flex>
               <Box mb={10} mt={5}>
               <Text textAlign='center'>{ele.bio}</Text>

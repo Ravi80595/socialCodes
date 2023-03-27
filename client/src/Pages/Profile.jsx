@@ -35,33 +35,6 @@ const getUserPosts=()=>{
 }
 
 const profilepicref=useRef()
-// const handleUpdate= async()=>{
-//   let formData= new FormData()
-//   formData.append("images",image)
-//   await axios.patch(`${baseUrl}/users/editprofile/${user._id}`,formData,{
-//     headers:{
-//         "Content-Type": "multipart/form-data",
-//         Authorization:`Bearer ${token}`
-//     }
-// })
-// .then((res)=>{
-//   alert("Image Updated")
-//   setImage(" ")
-// })
-// .catch((err)=>{
-//   console.log(err)
-// })
-// }
-
-// const handleDelete=(ele)=>{
-//   axios.delete(`${baseUrl}/posts/delete/${ele._id}`)
-//   .then((res)=>{
-//     console.log(res)
-//   })
-//   .catch((err)=>{
-//     console.log(err)
-//   })
-// }
 
 const SinglePost=(ele)=>{
   navigate(`/SinglePost/${ele._id}`)
@@ -101,7 +74,7 @@ const SingleUser=(id)=>{
           </Box>
           <Box>
           <Flex justifyContent='space-around'  pt={5}>
-            <Link to="/newPost">
+            <Link to="/create">
              <IoAddCircleOutline fontSize="25px"/>
             </Link>
             <Text>{posts.length} Posts</Text>
@@ -126,21 +99,7 @@ const SingleUser=(id)=>{
               posts && posts.map(ele=>(
                   <GridItem key={ele._id} w="100%">
                     <Image w={300} onClick={()=>SinglePost(ele)} cursor="pointer" src={`${baseUrl}/assets/${ele.picturePath}`} h={[100,100,400]}/>
-                {/* <Popover>
-                  <PopoverTrigger>
-                <Text bg='#74ceda' cursor="pointer" color='white' textAlign='center'>Delete</Text>
-                  </PopoverTrigger>
-                  <Portal>
-                    <PopoverContent>
-                      <PopoverArrow />
-                      <PopoverHeader>Are you sure.You want Delete.</PopoverHeader>
-                      <PopoverCloseButton />
-                      <PopoverBody>
-                        <Button onClick={()=>handleDelete(ele)} colorScheme='blue'>Delete</Button>
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Portal>
-                </Popover> */}
+
                   </GridItem>
               ))
             }

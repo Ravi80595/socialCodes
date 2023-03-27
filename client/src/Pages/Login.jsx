@@ -40,7 +40,7 @@ const Login = () => {
   return (
     <Box width={["90%","90%","35%"]} m="auto" mt={10}>
         <Box p={10} m={[0,0,10]} boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px'>
-          <Heading textAlign="center" mb={10} fontFamily="cursive">SocialCodes</Heading>
+          <Heading textAlign="center" mb={10} fontFamily="cursive">OnlySad</Heading>
             <FormControl isRequired>
                     <FormLabel>Email</FormLabel>
                     <Input type="email" placeholder='Enter email' name='email' onChange={handleChange}/>

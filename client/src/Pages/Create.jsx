@@ -23,15 +23,16 @@ const handlePost=async()=>{
      formData.append('location',location)
      formData.append("image", image);
      formData.append("picturePath",image.name)
-     console.log(desc,location,image.name)
+    //  console.log(desc,location,image.name)
 await axios.post(`${baseUrl}/post/create`,formData)
 .then((res)=>{
 console.log(res)
 alert("Post Uploaded")
-setImage(" ")
-setLocation(" ")
-setDesc(" ")
-})    
+})
+.catch((err)=>{
+  console.log(err)
+  alert(err.response.data.msg)
+})
 }
 
 
@@ -63,7 +64,7 @@ return (
         </Box>
      <Box>
           <Input p={10} value={desc} onChange={(e)=>setDesc(e.target.value)} placeholder='Enter Caption'/>
-          <Input mt={2} value={location} onChange={(e)=>setLocation(e.target.value)} placeholder='Enter Location'/>
+          {/* <Input mt={2} value={location} onChange={(e)=>setLocation(e.target.value)} placeholder='Enter Location'/> */}
      </Box>
      <Text textAlign="center" mt={2}>
      <Button w="50%" bg="blue.400" color='white' onClick={handlePost}>Post</Button>
