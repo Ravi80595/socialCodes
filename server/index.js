@@ -19,7 +19,6 @@ dotenv.config()
 app.use("/assets",express.static(path.join(__dirname,'public/assets')))
 
 
-
 const storage = multer.diskStorage({
     destination: function(req,file,cb){
         cb(null,"public/assets")
@@ -40,6 +39,8 @@ app.use('/post',postRoutes)
 const PORT = process.env.PORT || 3001
 mongoose.set("strictQuery", false);
 let connections = mongoose.connect(process.env.MONGO_URL)
+
+
 
 app.listen(PORT,()=>{
     try{

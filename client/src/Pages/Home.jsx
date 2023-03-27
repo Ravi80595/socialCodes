@@ -60,7 +60,6 @@ const getAllPosts=()=>{
 
 
 const likePost=(postId)=>{
-  console.log('clicked',postId,user._id)
 axios.patch(`${baseUrl}/post/${postId}/like/`,{userId: user._id})
   .then((res)=>{  
       console.log(res.data)

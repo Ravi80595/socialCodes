@@ -45,7 +45,11 @@ return (
       <Navbar/>
       <Box backgroundColor="blackAlpha.100" ml='20%' minH='100vh' pt={10}> 
       {
-      data && data.map(ele=>(
+      data.length==0? 
+      <Box bg='white' w='95%' m='auto' p={10}>
+        <Text textAlign='center'>You have currently no Request </Text>
+      </Box>
+      :data.map(ele=>(
       <Box w='95%' bg='white' pb={3} m='auto' borderRadius={10} mb={5}> 
       <Flex direction={['column','column','column','row']} justifyContent='space-around' p={5}>
       <Box lineHeight={10}>

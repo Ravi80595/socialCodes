@@ -18,9 +18,9 @@ const Navbar = () => {
 
 
 const handleLogout=()=>{
-  let Socialpshcyo=""
-  localStorage.setItem("socialPshcyoToken",JSON.stringify(Socialpshcyo))
-  navigate("/")
+  let Socialpshcyo="r"
+  localStorage.setItem("socialcodes",JSON.stringify(Socialpshcyo))
+  navigate("/login")
 }
 
 // ....................... Single User Page Navigation ............................
@@ -83,12 +83,12 @@ return (
         <Text display={["none","none","block"]}>Profile</Text>
           </Flex>
           </Link>
-          <Link to='/login'>
-          <Flex p={3} _hover={{background:'#f3f4f6'}} gap='50px'>
+          {/* <Link to='/login'> */}
+          <Flex onClick={handleLogout} p={3} _hover={{background:'#f3f4f6'}} gap='50px'>
         <AiOutlineLogout/>
         <Text display={["none","none","block"]}>Logout</Text>
           </Flex>
-        </Link>        
+        {/* </Link>         */}
       </Box>
     </Box>
     </Box>

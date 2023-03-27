@@ -2,13 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Box,Heading,Image,Text,Flex, Grid, GridItem,Button,useDisclosure,Modal,ModalHeader,ModalCloseButton,ModalOverlay,ModalContent,ModalBody,Textarea,Input,Popover,PopoverTrigger,Portal,PopoverContent,PopoverArrow,PopoverHeader,PopoverBody,PopoverCloseButton,Tooltip,Spinner} from '@chakra-ui/react'
 import {IoAddCircleOutline} from "react-icons/io5"
 import axios from 'axios'
-import {IoPersonRemoveOutline} from "react-icons/io5"
 import { useNavigate } from 'react-router-dom'
-import {RiImageEditFill,RiSettings4Line} from 'react-icons/ri'
 import { Link } from 'react-router-dom'
-import {CiEdit} from "react-icons/ci"
-import {BiChevronDown} from "react-icons/bi"
-import {AiOutlineDelete} from 'react-icons/ai'
 import {baseUrl} from "../Utils/BaseUrl"
 import Navbar from "../Components/Navbar"
 
@@ -90,7 +85,7 @@ axios.patch(`${baseUrl}/user/updateDetail/${user._id}`,payload)
             </Flex>
             <Flex pt={5} justifyContent='space-around'>
             <Text textAlign='center' pt={2}>Username : {ele.username}</Text>
-            <Text pt={5} display={["none","none","block"]}>Email : {ele.email}</Text>
+            {/* <Text pt={5} display={["none","none","block"]}>Email : {ele.email}</Text> */}
             </Flex>
           </Box>
           <Box>

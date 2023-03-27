@@ -95,7 +95,7 @@ return (
                 </Flex>
                 <Flex pt={5} justifyContent='space-around'>
                 <Text textAlign='center' pt={2}>Username : {ele.username}</Text>
-                <Text pt={5} display={["none","none","block"]}>Email : {ele.email}</Text>
+                {/* <Text pt={5} display={["none","none","block"]}>Email : {ele.email}</Text> */}
                 </Flex>
               </Box>
               <Box>

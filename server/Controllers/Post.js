@@ -109,3 +109,16 @@ export const getLikedUser=async(req,res)=>{
         console.log(err)
     }
 }
+
+// ........................... Single Post Get Method ...............................
+
+export const getSinglePost = async(req,res)=>{
+    try{
+        const {id}=req.params
+        const post = await Post.findById(id)
+        res.status(200).json(post)
+    }
+    catch(err){
+        console.log(err)
+    }
+}
