@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Box,Heading,Image,Text,Flex, Grid, GridItem,Button,useDisclosure,Modal,ModalHeader,ModalCloseButton,ModalOverlay,ModalContent,ModalBody,Textarea,Input,Popover,PopoverTrigger,Portal,PopoverContent,PopoverArrow,PopoverHeader,PopoverBody,PopoverCloseButton,Tooltip,Spinner} from '@chakra-ui/react'
+import { Box,Image,Text,Flex, Grid, GridItem,Button,useDisclosure,Modal,ModalHeader,ModalCloseButton,ModalOverlay,ModalContent,ModalBody,Textarea,Input,Stack,Skeleton} from '@chakra-ui/react'
 import {IoAddCircleOutline} from "react-icons/io5"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -18,7 +18,7 @@ const Profile = () => {
   const [firstName,setFirstName]=useState('')
   const [lastName,setLastName]=useState('')
   const [texts,setTexts]=useState('')
-
+  const [isLoading,setIsLoading]=useState(false)
 
 useEffect(()=>{
   getUserPosts()
@@ -27,9 +27,11 @@ useEffect(()=>{
 
 
 const getUserProfile=()=>{
+  setIsLoading(true)
   axios.get(`${baseUrl}/user/${user._id}`)
   .then((res)=>{
     console.log(res.data)
+    setIsLoading(false)
     setProfileData([res.data])
   })
 }
@@ -75,7 +77,11 @@ axios.patch(`${baseUrl}/user/updateDetail/${user._id}`,payload)
     <Flex ml="20%" backgroundColor="blackAlpha.100">
         <Box w={["95%","100%","100%",'100%']} margin="auto" p={[0,0,20]}>
         {
-          profileData.map(ele=>(
+          isLoading?<Stack color='blue'>
+          <Skeleton height='20px' />
+          <Skeleton height='20px' />
+          <Skeleton height='20px' />
+        </Stack>:profileData.map(ele=>(
         <>
         <Box margin="auto">
           <Box textAlign="center">
@@ -112,10 +118,14 @@ axios.patch(`${baseUrl}/user/updateDetail/${user._id}`,payload)
          <hr />
          <Grid templateColumns={['repeat(1, 1fr)','repeat(2, 1fr)','repeat(3, 1fr)']} gap={[2,2,5]} pt={[1,0,30]} w="100%">
             {
-              posts && posts.map(ele=>(
+              isLoading?<Stack color='blue'>
+              <Skeleton height='20px' />
+              <Skeleton height='20px' />
+              <Skeleton height='20px' />
+            </Stack>:posts && posts.map(ele=>(
                   <GridItem key={ele._id} w="100%">
+                    <Text textAlign='center'>{ele.date}</Text>
                     <Image w={300} onClick={()=>SinglePost(ele)} cursor="pointer" src={`${baseUrl}/assets/${ele.picturePath}`} h={[400,100,400]}/>
-
                   </GridItem>
               ))
             }

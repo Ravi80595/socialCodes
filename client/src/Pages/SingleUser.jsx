@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {IoAddCircleOutline,IoPersonRemoveOutline} from "react-icons/io5"
-import { Box,Heading,Image,Text,Flex, Grid, GridItem,Button } from '@chakra-ui/react'
+import { Box,Heading,Image,Text,Flex, Grid, GridItem,Button,Stack,Skeleton} from '@chakra-ui/react'
 import Navbar from '../Components/Navbar'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
@@ -14,7 +14,7 @@ const SingleUser = () => {
     const user = JSON.parse(localStorage.getItem("socialcodes"))
     const [update,setUpdate]=useState(1)
     const [SingleProfile,setSingleProfile]=useState([])
-
+    const [isLoading,setIsLoading]=useState(false)
 
 useEffect(()=>{
     getUserPosts()
@@ -22,12 +22,15 @@ useEffect(()=>{
 },[id])
 
 const getSingleUser=()=>{
+  setIsLoading(true)
     axios.get(`${baseUrl}/user/${id}`)
     .then((res)=>{  
         console.log(res.data)
+        setIsLoading(false)
         setSingleProfile([res.data])
     })
     .catch((err)=>{
+      setIsLoading(false)
         console.log(err)
     })
 }
@@ -73,17 +76,29 @@ const handleFollow=(id)=>{
     alert(res.data.msg)
   })
 }
-
+// if(isLoading){
+//   return(
+//   <Stack color='blue'>
+//   <Skeleton height='20px' />
+//   <Skeleton height='20px' />
+//   <Skeleton height='20px' />
+// </Stack>
+//   )
+// }
 return (
     <>
     <Navbar/>
-    <Flex pt={20} backgroundColor="blackAlpha.100">
+    <Flex backgroundColor="blackAlpha.100">
         <Box w={["10%","10%","10%","20%"]} pl={10} pr={10}>
             {/* <Text p={5} textAlign="center">Friends</Text> */}
         </Box>
         <Box w='75%' margin="auto" p={[0,0,0,20]} pt={5}>
         {
-          SingleProfile.map(ele=>(
+         isLoading?<Stack color='blue'>
+         <Skeleton height='20px' />
+         <Skeleton height='20px' />
+         <Skeleton height='20px' />
+       </Stack>:SingleProfile.map(ele=>(
             <>
             <Box margin="auto">
               <Box textAlign="center">
@@ -120,8 +135,13 @@ return (
          <hr />
          <Grid templateColumns={['repeat(1, 1fr)','repeat(2, 1fr)','repeat(3, 1fr)']} gap={5} pt={30}>
             {
-              posts && posts.map(ele=>(
+            isLoading?<Stack color='blue'>
+         <Skeleton height='20px' />
+         <Skeleton height='20px' />
+         <Skeleton height='20px' />
+       </Stack>:posts && posts.map(ele=>(
                   <GridItem onClick={()=>SinglePost(ele)}>
+                    <Text textAlign='center'>{ele.date}</Text>
                     <Image w={300} cursor='pointer' src={`${baseUrl}/assets/${ele.picturePath}`} h={400}/>
                   </GridItem>
               ))

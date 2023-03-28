@@ -27,11 +27,11 @@ const handlePost=async()=>{
 await axios.post(`${baseUrl}/post/create`,formData)
 .then((res)=>{
 console.log(res)
-alert("Post Uploaded")
+alert(res.data.msg)
 })
 .catch((err)=>{
   console.log(err)
-  alert(err.response.data.msg)
+  // alert(err.response.data.msg)
 })
 }
 

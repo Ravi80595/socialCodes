@@ -18,11 +18,14 @@ export const createPost = async(req,res)=>{
             $gte: moment().subtract(1, 'day').toDate()
             }
         });
-
-  if (existingPost) {
-    res.status(429).send({"msg":'You can only create one post in 24 hours'});
-    return;
-  }
+        if (existingPost) {
+            const currentTime = new Date();
+            const difference = currentTime.getTime() - existingPost.createdAt.getTime();
+            const hoursAgo =23-Math.floor(difference / (1000 * 60 * 60));
+            const minutesAgo =60- Math.floor((difference / (1000 * 60)) % 60);
+            res.status(200).send({"msg":`You can post after ${hoursAgo} hrs & ${minutesAgo} mnts`});
+            return;
+        }
         const newPost = new Post({
             userId,
             firstName:user.firstName,
@@ -35,7 +38,7 @@ export const createPost = async(req,res)=>{
         })
         await newPost.save()
         const post = await Post.find()
-        res.status(200).json(post)
+        res.status(200).send({'msg':"Post Uploaded"})
     }
     catch(err){
         console.log(err)

@@ -1,12 +1,11 @@
 import React, { useEffect, useState,useReducer } from 'react'
 import {AiOutlineHeart,AiTwotoneHeart} from 'react-icons/ai'
-import { Box,Flex,Image,Text,Modal,ModalHeader,ModalCloseButton,ModalOverlay,ModalContent,ModalBody,useDisclosure,Spinner,Input,InputGroup,InputLeftElement,InputRightElement, useToast } from '@chakra-ui/react'
+import { Box,Flex,Image,Text,Modal,ModalHeader,ModalCloseButton,ModalOverlay,ModalContent,ModalBody,useDisclosure,useToast,Stack,Skeleton} from '@chakra-ui/react'
 import axios from 'axios'
 // import {FaRegShareSquare} from "react-icons/fa"
 import {MdOutlineModeComment} from "react-icons/md"
 import { useNavigate } from 'react-router-dom'
 import {BsEmojiSmile,BsSave2} from "react-icons/bs"
-import {CiHeart} from "react-icons/ci"
 import {baseUrl} from '../Utils/BaseUrl'
 import Navbar from '../Components/Navbar'
 
@@ -17,11 +16,10 @@ const Home = () => {
     const [likes,setLikes]=useState([])
     const [text,setText]=useState("")
     const toast=useToast()
-    const { isOpen:iscommentOpen, onOpen:oncommentOpen, onClose:oncommentClose } = useDisclosure()
     const { isOpen:islikeOpen, onOpen:onlikeOpen, onClose:onlikeClose } = useDisclosure()
     const [comments,setComments]=useState([])
     const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
-
+    const [isLoading,setIsLoading]=useState(false)
 
 const handleRender=()=>{
   console.log("rerendrng")
@@ -48,9 +46,11 @@ const SingleUser=(id)=>{
 
 
 const getAllPosts=()=>{
+    setIsLoading(true)
     axios.get(`${baseUrl}/post/all`)
     .then((res)=>{  
         console.log(res.data)
+        setIsLoading(false)
         setFeeds(res.data)
     })
 }
@@ -108,7 +108,6 @@ const handleComment=(postId)=>{
 
 const seecomments=(ele)=>{
   setComments(ele.comments)
-  oncommentOpen()
 } 
   return (
     <Box>
@@ -116,7 +115,11 @@ const seecomments=(ele)=>{
       <Box w='80%' ml='20%' backgroundColor="blackAlpha.100">
 
     {
-    feeds.map(ele=>(  
+    isLoading?<Stack color='blue'>
+    <Skeleton height='20px' />
+    <Skeleton height='20px' />
+    <Skeleton height='20px' />
+  </Stack>:feeds.map(ele=>(  
         <Box w={['90%','90%','90%','50%']} m='auto' backgroundColor='white' pt={[2]} mb={[5]} borderRadius={["0%","0%","15px"]} key={ele._id}>
          <Flex p="7px">
         <Flex w="100%" gap={5} justifyContent='space-around'>
