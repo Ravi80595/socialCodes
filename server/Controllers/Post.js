@@ -125,3 +125,19 @@ export const getSinglePost = async(req,res)=>{
         console.log(err)
     }
 }
+
+
+export const getHomeFeed=async(req,res)=>{
+    const { userId } = req.body;
+  try {
+    const user = await User.findById(userId);
+    const friendIds = user.following;
+    const friends = await User.find({ _id: { $in: friendIds } });
+    const friendPosts = await Post.find({ userId: { $in: friends } });
+    console.log(friendPosts)
+    res.json(friendPosts);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
