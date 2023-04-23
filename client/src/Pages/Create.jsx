@@ -23,9 +23,12 @@ const handlePost=async()=>{
      formData.append('location',location)
      formData.append("image", image);
      formData.append("picturePath",image.name)
-    //  console.log(desc,location,image.name)
-await axios.post(`${baseUrl}/post/create`,formData)
-.then((res)=>{
+     console.log(desc,location,image,user._id)
+await axios.post(`${baseUrl}/post/create`,formData,{
+  headers:{
+       "Content-Type": "multipart/form-data"
+  }
+}).then((res)=>{
 console.log(res)
 alert(res.data.msg)
 })
