@@ -16,28 +16,49 @@ const Create = () => {
 
 
  
+// const handlePost=async()=>{
+//      const formData=new FormData()
+//      formData.append("userId",user._id)
+//      formData.append("description",desc)
+//     //  formData.append('location',location)
+//      formData.append("image", image);
+//     //  formData.append("picturePath",image.name)
+//      console.log(desc,image.name,user._id)
+// await axios.post(`https://mysterious-tan-raven.cyclic.app/post/create`,formData,{
+//   headers: {
+//     'Content-Type': 'multipart/form-data'
+//   }
+// }).then((res)=>{
+// console.log(res)
+// alert(res.data.msg)
+// })
+// .catch((err)=>{
+//   console.log(err.response)
+// })
+// }
+
 const handlePost=async()=>{
-     const formData=new FormData()
-     formData.append("userId",user._id)
-     formData.append("description",desc)
-     formData.append('location',location)
-     formData.append("image", image);
-     formData.append("picturePath",image.name)
-     console.log(desc,location,image,user._id)
+  const formData=new FormData()
+  formData.append("userId",user._id)
+  formData.append("description",desc)
+  formData.append('location',location)
+  formData.append("image", image);
+  formData.append("picturePath",image.name)
+  console.log(desc,location,image.name)
 await axios.post(`${baseUrl}/post/create`,formData,{
   headers:{
-       "Content-Type": "multipart/form-data"
+       "Content-Type": "multipart/form-data",
+      //  Authorization:`Bearer ${token}`
   }
-}).then((res)=>{
+})
+.then((res)=>{
 console.log(res)
 alert(res.data.msg)
-})
-.catch((err)=>{
-  console.log(err)
-  // alert(err.response.data.msg)
-})
+setImage(" ")
+setLocation(" ")
+setDesc(" ")
+})    
 }
-
 
 
 return (

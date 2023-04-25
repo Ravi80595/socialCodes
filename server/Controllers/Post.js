@@ -10,8 +10,7 @@ export const createPost = async(req,res)=>{
     try{
         const {userId,description,picturePath}= req.body
         const user = await User.findById(userId)
-
-         // Check if the user has created a post in the last 24 hours
+        // console.log(userId,description,picturePath)
         const existingPost = await Post.findOne({
             userId: userId,
             createdAt: {
